@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +37,7 @@ public class wmovies {
 
     @GetMapping("/now")
     @ResponseStatus(HttpStatus.OK)
-    public void dadosMovice () throws IOException, InterruptedException {
+    public List<DadosMovieTMDB> dadosMovice () throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uri + "/discover/movie?include_adult=true&language=pt-br"))
                 .method("GET", HttpRequest.BodyPublishers.noBody())
@@ -43,31 +45,20 @@ public class wmovies {
                 .header("accept", "application/json")
                 .build();
 
-//        HttpClient client = HttpClient.newHttpClient();
-//        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//        Gson gson = new Gson();
-//        DadosMovieTMDB dados = gson.fromJson(response.body(), DadosMovieTMDB.class);
-//        System.out.println(dados);
-
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        Gson gson = new Gson();
-//        DadosMovieTMDB dados = dadosArray.stream();
-//        DadosMovieTMDB[] dadosArray = new ObjectMapper().read(response.body(), DadosMovieTMDB[].class);
 
-//        JsonNode rootNode =  new ObjectMapper().readTree(response.body()).get("results");
         JsonNode jsonNode = new ObjectMapper().readTree(response.body()).get("results");
+        List<DadosMovieTMDB> dadosMoviesList = new ArrayList<>();
+        jsonNode.elements().forEachRemaining(dados -> {
+            dadosMoviesList.add(new DadosMovieTMDB(
+                    dados.get("title").toString(), dados.get("overview").toString(),
+                    dados.get("release_date").toString(), dados.get("backdrop_path").toString(),
+                    dados.get("vote_average").asDouble()));
+        });
 
-        jsonNode.
+        dadosMoviesList.stream().forEach(filme -> System.out.println(filme.toString()));
 
-        if(jsonNode.isArray()) {
-            for (JsonNode movies: jsonNode){
-               var teste =  new DadosMovieTMDB(movies.get("title").toString());
-                System.out.println(teste);
-            }
-        }
-
-
-
+        return dadosMoviesList;
     }
 }
