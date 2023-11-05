@@ -50,14 +50,17 @@ public class wmovies {
 
         JsonNode jsonNode = new ObjectMapper().readTree(response.body()).get("results");
         List<DadosMovieTMDB> dadosMoviesList = new ArrayList<>();
-        jsonNode.elements().forEachRemaining(dados -> {
+        jsonNode.elements().forEachRemaining(movie -> {
             dadosMoviesList.add(new DadosMovieTMDB(
-                    dados.get("title").toString(), dados.get("overview").toString(),
-                    dados.get("release_date").toString(), dados.get("backdrop_path").toString(),
-                    dados.get("vote_average").asDouble()));
+                    movie.get("title").toString(), movie.get("overview").toString(),
+                    movie.get("release_date").toString(), movie.get("backdrop_path").toString(),
+                    movie.get("vote_average").asDouble()));
         });
 
-        dadosMoviesList.stream().forEach(filme -> System.out.println(filme.toString()));
+        dadosMoviesList.stream().forEach(movie -> System.out.println(movie.toString()));
+        System.out.println(response.body());
+
+        System.out.println(jsonNode.toString());
 
         return dadosMoviesList;
     }
