@@ -77,7 +77,7 @@ public class wmovies {
 
 
 
-//        System.out.println(response.body());
+        System.out.println(response.body());
 
 //        JsonNode jsonNode = new ObjectMapper().readTree(response.body()).get("results");
 //        List<DadosMovieTMDB> dadosMoviesList = new ArrayList<>();
@@ -91,7 +91,6 @@ public class wmovies {
 //        dadosMoviesList.stream().forEach(movie -> System.out.println(movie.title()));
 //        System.out.println(response.body().toString());
 
-        System.out.println(dadosMoviesList);
 
 //        return response.body();
         return dadosMoviesList;
