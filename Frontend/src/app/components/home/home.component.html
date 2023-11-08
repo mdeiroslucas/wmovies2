@@ -1,0 +1,20 @@
+<div className="container">
+    <div className="movie-list">
+      <h1>oi</h1>
+      <article key={movie.id} className="container__movie">
+        
+        <div *ngFor="let filme of movies$ | async">
+          <h1>{{filme.title}}</h1>
+          <!-- <h2>Esse é o nome do filme</h2> -->
+          <!-- <img className="container__movie--image" src={"https://image.tmdb.org/t/p/original/{{ filme.posterPath }}" alt={movie.title}/> -->
+          <img className="container__movie--image" src="https://image.tmdb.org/t/p/original/{{ filme.backDropPath }}"/>
+          <!-- src="https://image.tmdb.org/t/p/original/{{ filme.posterPath }}" alt={movie.title} -->
+        </div>
+        <!-- <span><h2 className="container__movie--title">{movies$.title}</h2></span> -->
+        <!-- <Link to={`/movie/${movie.id}`}>Acessar</Link> -->
+      </article>
+    </div>
+</div>
+
+
+
