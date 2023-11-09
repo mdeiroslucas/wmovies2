@@ -19,17 +19,6 @@ export class HomeComponent {
     private moviesService: MovieService
   ) {
     this.movies$ = this.moviesService.getMovies();
-
-
-    this.movies$.pipe(
-      tap(movies => {
-        movies.forEach(movie => {
-          console.log(movie.backDropPath);
-        });
-      })
-    ).subscribe();
-
-    console.log("oi");
   }
 
 

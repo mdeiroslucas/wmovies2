@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Movies } from '../model/movies';
-import { catchError, first, of } from 'rxjs';
+import { catchError, first, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,18 +9,19 @@ import { catchError, first, of } from 'rxjs';
 
 export class MovieService {
   
-  private readonly API = "wmovies/now";
+  private readonly API = "wmovies";
   
   constructor(
     private httpClient: HttpClient
-    ) {}
+    
+    ) {
+      console.log('chamou construtor');
+    }
 
   getMovies() {
-    // return [ {id:"2", title: "oi", overview: "Vivendo" }];
-    console.log("chamou");
-    return this.httpClient.get<Movies[]>(this.API)
+    return this.httpClient.get<Movies[]>(this.API+ '/now')
       .pipe(
-        first(),
+        tap(movies => console.log(movies)),
         catchError(error => {
           console.log("deu ruim na hora de chamar filmes");
           return of([]);
