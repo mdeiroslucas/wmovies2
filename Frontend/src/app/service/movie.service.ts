@@ -19,6 +19,7 @@ export class MovieService {
     }
 
   getMovies() {
+    console.log('chamou a api');
     return this.httpClient.get<Movies[]>(this.API+ '/now')
       .pipe(
         tap(movies => console.log(movies)),

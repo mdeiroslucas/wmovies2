@@ -4,4 +4,5 @@ export interface Movies {
     backDropPath: string;
     overview: string;
     voteAverage: number;
+    posterPath: string;
 }

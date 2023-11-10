@@ -10,10 +10,6 @@ import { MovieService } from 'src/app/service/movie.service';
 })
 export class HomeComponent {
   movies$: Observable<Movies[]>;
-  // movies$: Movies[] = [
-  //   { id: "1", title: 'Movie 1', overview: 'movie description' },
-  //   { id: "2", title: 'Movie 2', overview: 'movie description 2' }
-  // ];
 
   constructor (
     private moviesService: MovieService

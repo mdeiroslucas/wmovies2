@@ -1,14 +1,25 @@
-<div className="container">
-  teste
+<!-- <div className="container">
     <div className="movie-list" *ngFor="let filme of movies$ | async">
       <article key={movie.id} className="container__movie">
         <div>
-          <h1>{{filme.title}}</h1>
-          <!-- <img className="container__movie--image" src="https://image.tmdb.org/t/p/original/{{ filme.backDropPath }}"/> -->
-        </div>
+          <h1>{{filme.title}}</h1> -->
+          
+        <!-- </div>
       </article>
     </div>
+</div> -->
+
+<div class="container">
+  <div class="movie" *ngFor="let movie of movies$ | async">
+    <h1 class="movie--tittle">{{movie.title}}</h1>
+    <img class="movie--image" src="https://image.tmdb.org/t/p/original/{{ movie.posterPath }}" alt="poster image of the movie"/>
+    <div class="movie--description">
+      <p class="description">{{movie.overview}}</p>
+    </div>    
+  </div>
 </div>
+
+
 
 
 
