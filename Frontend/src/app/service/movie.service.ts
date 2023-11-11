@@ -9,7 +9,7 @@ import { catchError, first, of, tap } from 'rxjs';
 
 export class MovieService {
   
-  private readonly API = "wmovies";
+  private readonly API = "http://localhost:8080/wmovies";
   
   constructor(
     private httpClient: HttpClient
@@ -20,7 +20,7 @@ export class MovieService {
 
   getMovies() {
     console.log('chamou a api');
-    return this.httpClient.get<Movies[]>(this.API+ '/now')
+    return this.httpClient.get<Movies[]>(this.API + '/now')
       .pipe(
         tap(movies => console.log(movies)),
         catchError(error => {
