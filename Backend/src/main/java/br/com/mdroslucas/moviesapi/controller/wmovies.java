@@ -88,20 +88,6 @@ public class wmovies {
 
         DadosMovieTMDB dadosMovieTMDB = gson.fromJson(response.body(), DadosMovieTMDB.class);
 
-        System.out.println(dadosMovieTMDB);
-
         return dadosMovieTMDB;
     }
-
-
-
-//        Request request = new Request.Builder()
-//                .url("https://api.themoviedb.org/3/find/external_id?external_source=")
-//                .get()
-//                .addHeader("accept", "application/json")
-//                .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZTVlNDhjMmZhZGIxZDIwMWVhOTk0YzE0NmViZmY1ZCIsInN1YiI6IjYzZjI3ZWQ3MTUzNzZjMDA4MzM2ODg1NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zBa61hgL4fS5J-E5W3j0jU_fe0pBvXBk7obJ8nS2Gyc")
-//                .build();
-//
-//        Response response = client.newCall(request).execute();
-
 }

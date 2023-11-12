@@ -10,20 +10,23 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  movies$: Observable<Movies[]>;
+  movies$!: Observable<Movies[]>;
 
   constructor (
     private moviesService: MovieService,
     private router: Router,
-    private route: ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) {
-    this.movies$ = this.moviesService.getMovies();
+    activatedRoute.params.subscribe((params) => {
+      if(params.movieName)
+        this.movies$ = this.moviesService.getMoviesbySearch(params.movieName);
+      else
+        this.movies$ = this.moviesService.getMovies();
+    })
   }
 
-  getById(id: string){
-    console.log("O id selecionado foi: " + id);
-
-    this.router.navigate(['wmovies/' + id], {relativeTo: this.route});
+  getById(movie: Movies){
+    this.router.navigate([movie.id], {relativeTo: this.activatedRoute});
   }
 
 

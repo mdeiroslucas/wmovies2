@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Movies } from '../model/movies';
-import { catchError, first, of, tap } from 'rxjs';
+import { Observable, catchError, first, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ import { catchError, first, of, tap } from 'rxjs';
 
 export class MovieService {
   
-  private readonly API = "http://localhost:8080/wmovies";
+  private readonly API = "http://localhost:8080/wmovies/";
   
   constructor(
     private httpClient: HttpClient
@@ -20,7 +20,7 @@ export class MovieService {
 
   getMovies() {
     console.log('chamou a api');
-    return this.httpClient.get<Movies[]>(this.API + '/now')
+    return this.httpClient.get<Movies[]>(this.API + 'now')
       .pipe(
         tap(movies => console.log(movies)),
         catchError(error => {
@@ -29,4 +29,37 @@ export class MovieService {
         })
       );
   }
+
+  // getMovieById(id: string)  {
+  //   return this.httpClient.get<Movies>(this.API + id)
+  //   .pipe(
+  //     tap(movie => console.log(movie)),
+  //     catchError(error => {
+  //       console.log("deu ruim na hora de chamar o filme pelo id");
+  //       return of([]);
+  //     })
+  //   );
+  // }
+
+  getMovieById(id: string): Observable<Movies> {
+    return this.httpClient.get<Movies>(this.API + id)
+      .pipe(
+        catchError(error => {
+          console.log("deu ruim na hora de chamar filmes");
+          return of();
+        })
+      );
+  }
+
+  getMoviesbySearch(movieName: string) {
+    return this.httpClient.get<Movies[]>(this.API + movieName.toLowerCase)
+      .pipe(
+        tap(movie => console.log(movie)),
+        catchError(error => {
+          console.log("deu ruim na hora de chamar filmes");
+          return of([]);
+        })
+      );
+  }      
+
 }

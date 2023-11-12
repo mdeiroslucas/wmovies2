@@ -1,14 +1,16 @@
-<div class="container">
-  <div class="movie" *ngFor="let movie of movies$ | async" (onclick)="getById(movie.id)">
-    <h1 class="movie--tittle">{{movie.title}}</h1>
-    <img class="movie--image" src="https://image.tmdb.org/t/p/original/{{ movie.posterPath }}" alt="poster image of the movie"/>
-    <div class="movie--description">
-      <p class="description">{{movie.overview}}</p>
-    </div>    
+<body>
+  <div class="container">
+    <a
+      class="movie"
+      *ngFor="let movie of movies$ | async"
+      (click)="getById(movie)"      
+    >
+      <img
+        class="movie--image"
+        src="https://image.tmdb.org/t/p/original/{{ movie.posterPath }}"
+        alt="poster image of the movie"
+      />
+      <h1 class="movie--title">{{ movie.title }}</h1>
+    </a>
   </div>
-</div>
-
-
-
-
-
+</body>

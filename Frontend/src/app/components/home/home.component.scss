@@ -1,27 +1,41 @@
+
+body {
+  display: grid;
+  place-items: center;
+
+  background: linear-gradient(to bottom, rgb(2,31,55) 20%, #3498db);
+  // background: #3498db;
+
+  // #8e44ad, #3498db
+}
+
 .container {
+  width: 80%;
   margin: 1.5em;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 1em;
   place-items: center;
 }
 
 .movie {
-  border: 3px solid black;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
   border-radius: 1em;
   text-align: center;
-  padding: 1em;
   height: 100%;
+  cursor: pointer;
+  
+  &--title {
+    font-size: 1rem;
+    color: cornsilk;
+  }
 
   &--image {
     height: 20em;
-    max-width: 80%;
     object-fit: cover;
-    border-radius: 8px 8px 0 0;
+    border-radius: 10px;
     margin: 2em 0;
   }
 
