@@ -74,7 +74,7 @@ public class wmovies {
     }
 
     @GetMapping("/{id}")
-    public String dadosMovie(@PathVariable("id") String id) throws IOException, InterruptedException {
+    public DadosMovieTMDB dadosMovie(@PathVariable("id") String id) throws IOException, InterruptedException {
 
         HttpClient client = HttpClient.newHttpClient();
 
@@ -90,8 +90,7 @@ public class wmovies {
 
         System.out.println(dadosMovieTMDB);
 
-        return response.body();
-
+        return dadosMovieTMDB;
     }
 
 
