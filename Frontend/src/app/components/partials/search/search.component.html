@@ -1,0 +1,10 @@
+<div>
+  <input
+    type="text"
+    #s
+    placeholder="Search your movie!"
+    (keyup.enter)="search(s.value)"
+    [value]="movieName"
+  />
+  <button (click)="search(s.value)"></button>
+</div>

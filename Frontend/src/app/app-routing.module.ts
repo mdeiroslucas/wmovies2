@@ -7,7 +7,9 @@ import { MovieResolver } from './components/movie/guards/movie.resolver';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'wmovies'},
   { path: 'wmovies', component: HomeComponent },
-  { path: 'wmovies/:id', component: MovieDetailComponent}
+  { path: 'wmovies/:id', component: MovieDetailComponent},
+  { path: 'wmovies/search/:movieName', component: HomeComponent},
+  
 ];
 
 @NgModule({

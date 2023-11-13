@@ -52,7 +52,7 @@ export class MovieService {
   }
 
   getMoviesbySearch(movieName: string) {
-    return this.httpClient.get<Movies[]>(this.API + movieName.toLowerCase)
+    return this.httpClient.get<Movies[]>(this.API + movieName)
       .pipe(
         tap(movie => console.log(movie)),
         catchError(error => {
