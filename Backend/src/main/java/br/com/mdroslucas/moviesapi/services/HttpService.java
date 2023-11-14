@@ -1,35 +1,25 @@
-package br.com.mdroslucas.moviesapi.controller;
-
+package br.com.mdroslucas.moviesapi.services;
 
 import br.com.mdroslucas.moviesapi.model.movie.DadosMovieTMDB;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-
-
-import java.util.ArrayList;
-import java.util.List;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.reflect.TypeToken;
-
-@RestController
-@RequestMapping("/wmovies")
-@CrossOrigin( origins = "*")
-public class wmovies {
+@Service
+public class HttpService {
 
     @Value("${api.url}")
     private String uri;
@@ -40,10 +30,7 @@ public class wmovies {
     private final HttpClient client = HttpClient.newHttpClient();
     private final Gson gson = new Gson();
     private final Type listType = new TypeToken<List<DadosMovieTMDB>>(){}.getType();
-
-    @GetMapping("/now")
-    @ResponseStatus(HttpStatus.OK)
-    public List<DadosMovieTMDB> dadosMovice () throws IOException, InterruptedException {
+    public List<DadosMovieTMDB> getMoviesPlayingNow() throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uri + "/discover/movie?include_adult=true&language=pt-br"))
@@ -71,23 +58,5 @@ public class wmovies {
             dadosMoviesList.add(dadosMovie);
         }
         return dadosMoviesList;
-    }
-
-    @GetMapping("/{id}")
-    public DadosMovieTMDB dadosMovie(@PathVariable("id") String id) throws IOException, InterruptedException {
-
-        HttpClient client = HttpClient.newHttpClient();
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(uri + "/movie/"+ id +"?language=pt-br"))
-                .GET()
-                .headers("authorization", apiKey, "accept", "application/json")
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        DadosMovieTMDB dadosMovieTMDB = gson.fromJson(response.body(), DadosMovieTMDB.class);
-
-        return dadosMovieTMDB;
     }
 }

@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public record DadosMovieTMDB(
-
-//        Array[] results,
         Integer id,
         String title,
         String overview,
