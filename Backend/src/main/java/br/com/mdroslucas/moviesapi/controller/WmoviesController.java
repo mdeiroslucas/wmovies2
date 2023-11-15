@@ -5,6 +5,7 @@ import br.com.mdroslucas.moviesapi.model.movie.DadosMovieTMDB;
 import br.com.mdroslucas.moviesapi.model.movie.Movie;
 import br.com.mdroslucas.moviesapi.model.movie.ResponseMovie;
 import com.google.gson.*;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -74,7 +75,7 @@ public class WmoviesController {
 
     @GetMapping("/now")
     @ResponseStatus(HttpStatus.OK)
-    public List<ResponseMovie> dadosMovies () throws IOException, InterruptedException {
+    public ResponseMovie dadosMovies () throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uri + "/discover/movie?include_adult=true&language=pt-br"))
@@ -83,12 +84,7 @@ public class WmoviesController {
                 .header("accept", "application/json")
                 .build();
 
-
-        List<DadosMovieTMDB> dadosMoviesList = new ArrayList<>();
-
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        Type jsonResponse = new TypeToken<List<DadosMovieTMDB>>(){}.getType();
 
         ResponseMovie responseMovie = gson.fromJson(response.body(), ResponseMovie.class);
 
