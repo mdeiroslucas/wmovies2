@@ -29,5 +29,9 @@ export class HomeComponent {
     this.router.navigate([movie.id], {relativeTo: this.activatedRoute});
   }
 
+  getMoviesbySearch(movieName: string){
+    this.router.navigate(['/search/'+ movieName], {relativeTo: this.activatedRoute});
+  }
+
 
 }

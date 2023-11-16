@@ -41,41 +41,9 @@ public class WmoviesController {
 
 
 
-//    @GetMapping("/now")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<DadosMovieTMDB> dadosMovies () throws IOException, InterruptedException {
-//
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create(uri + "/discover/movie?include_adult=true&language=pt-br"))
-//                .method("GET", HttpRequest.BodyPublishers.noBody())
-//                .header("authorization", apiKey)
-//                .header("accept", "application/json")
-//                .build();
-//
-//        List<DadosMovieTMDB> dadosMoviesList = new ArrayList<>();
-//
-//        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//
-//        JsonObject jsonObject = gson.fromJson(response.body(), JsonObject.class);
-//
-//        JsonArray resultsArray = jsonObject.get("results").getAsJsonArray();
-//
-//        for (JsonElement movieElement : resultsArray) {
-//            JsonObject movieObject = movieElement.getAsJsonObject();
-//            DadosMovieTMDB dadosMovie = new DadosMovieTMDB(
-//                    movieObject.get("id").getAsInt(),
-//                    movieObject.get("title").getAsString(), movieObject.get("overview").getAsString(),
-//                    movieObject.get("release_date").getAsString(), movieObject.get("backdrop_path").getAsString(),
-//                    movieObject.get("vote_average").getAsDouble(), movieObject.get("poster_path").getAsString()
-//            );
-//            dadosMoviesList.add(dadosMovie);
-//        }
-//        return dadosMoviesList;
-//    }
-
     @GetMapping("/now")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseMovie dadosMovies () throws IOException, InterruptedException {
+    public List<DadosMovieTMDB> getMoviesPlayingNow () throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(uri + "/discover/movie?include_adult=true&language=pt-br"))
@@ -84,17 +52,29 @@ public class WmoviesController {
                 .header("accept", "application/json")
                 .build();
 
+        List<DadosMovieTMDB> dadosMoviesList = new ArrayList<>();
+
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        ResponseMovie responseMovie = gson.fromJson(response.body(), ResponseMovie.class);
+        JsonObject jsonObject = gson.fromJson(response.body(), JsonObject.class);
 
-        System.out.println(responseMovie);
+        JsonArray resultsArray = jsonObject.get("results").getAsJsonArray();
 
-        return responseMovie;
+        for (JsonElement movieElement : resultsArray) {
+            JsonObject movieObject = movieElement.getAsJsonObject();
+            DadosMovieTMDB dadosMovie = new DadosMovieTMDB(
+                    movieObject.get("id").getAsInt(),
+                    movieObject.get("title").getAsString(), movieObject.get("overview").getAsString(),
+                    movieObject.get("release_date").getAsString(), movieObject.get("backdrop_path").getAsString(),
+                    movieObject.get("vote_average").getAsDouble(), movieObject.get("poster_path").getAsString()
+            );
+            dadosMoviesList.add(dadosMovie);
+        }
+        return dadosMoviesList;
     }
 
     @GetMapping("/{id}")
-    public DadosMovieTMDB dadosMovie(@PathVariable("id") String id) throws IOException, InterruptedException {
+    public DadosMovieTMDB getMovieById(@PathVariable("id") String id) throws IOException, InterruptedException {
 
         HttpClient client = HttpClient.newHttpClient();
 
@@ -109,5 +89,44 @@ public class WmoviesController {
         DadosMovieTMDB dadosMovieTMDB = gson.fromJson(response.body(), DadosMovieTMDB.class);
 
         return dadosMovieTMDB;
+    }
+
+
+
+    @GetMapping("/{movieName}")
+    public List<DadosMovieTMDB> searchMovieByName(@PathVariable String movieName) throws IOException, InterruptedException {
+
+        HttpClient client = HttpClient.newHttpClient();
+
+        System.out.println(movieName.toString());
+
+        HttpRequest request = HttpRequest.newBuilder()
+
+//        query=a%20freira
+
+                .uri(URI.create(uri + "/search/movie?query="+ movieName +"&include_adult=true&language=pt-br"))
+                .GET()
+                .headers("authorization", apiKey, "accept", "application/json")
+                .build();
+
+        List<DadosMovieTMDB> dadosMoviesList = new ArrayList<>();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        JsonObject jsonObject = gson.fromJson(response.body(), JsonObject.class);
+
+        JsonArray resultsArray = jsonObject.get("results").getAsJsonArray();
+
+        for (JsonElement movieElement : resultsArray) {
+            JsonObject movieObject = movieElement.getAsJsonObject();
+            DadosMovieTMDB dadosMovie = new DadosMovieTMDB(
+                    movieObject.get("id").getAsInt(),
+                    movieObject.get("title").getAsString(), movieObject.get("overview").getAsString(),
+                    movieObject.get("release_date").getAsString(), movieObject.get("backdrop_path").getAsString(),
+                    movieObject.get("vote_average").getAsDouble(), movieObject.get("poster_path").getAsString()
+            );
+            dadosMoviesList.add(dadosMovie);
+        }
+        return dadosMoviesList;
     }
 }
