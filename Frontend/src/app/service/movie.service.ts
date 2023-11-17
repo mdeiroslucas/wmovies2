@@ -53,7 +53,7 @@ export class MovieService {
 
   getMoviesbySearch(movieName: string) {
     console.log('chegou aqui')
-    return this.httpClient.get<Movies[]>(this.API + movieName)
+    return this.httpClient.get<Movies[]>(this.API +'search/'+ movieName)
       .pipe(
         tap(movie => console.log(movie)),
         catchError(error => {

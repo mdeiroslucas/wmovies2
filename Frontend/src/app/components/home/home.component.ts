@@ -18,10 +18,13 @@ export class HomeComponent {
     private activatedRoute: ActivatedRoute
   ) {
     activatedRoute.params.subscribe((params) => {
-      if(params.movieName)
+      if(params.movieName) {
+        console.log('chamo o filme por parametro')
         this.movies$ = this.moviesService.getMoviesbySearch(params.movieName);
-      else
+      }
+      else 
         this.movies$ = this.moviesService.getMovies();
+      
     })
   }
 
