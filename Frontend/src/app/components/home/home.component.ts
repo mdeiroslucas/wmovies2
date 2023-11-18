@@ -19,7 +19,6 @@ export class HomeComponent {
   ) {
     activatedRoute.params.subscribe((params) => {
       if(params.movieName) {
-        console.log('chamo o filme por parametro')
         this.movies$ = this.moviesService.getMoviesbySearch(params.movieName);
       }
       else 
@@ -29,11 +28,11 @@ export class HomeComponent {
   }
 
   getById(movie: Movies){
-    this.router.navigate([movie.id], {relativeTo: this.activatedRoute});
+    this.router.navigate(['wmovies/'+movie.id]);
   }
 
   getMoviesbySearch(movieName: string){
-    this.router.navigate(['/search/'+ movieName], {relativeTo: this.activatedRoute});
+    this.router.navigate(['wmovies/search/'+ movieName]);
   }
 
 

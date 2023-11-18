@@ -16,9 +16,8 @@ export class SearchComponent {
   }
 
   search(name: string): void {
-    console.log('chamou no search');
     if (name) 
-    this.router.navigateByUrl('/search/' + name);
+    this.router.navigateByUrl('wmovies/search/' + name);
   }
 
 }

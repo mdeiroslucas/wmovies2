@@ -2,18 +2,14 @@
 body {
   display: grid;
   place-items: center;
-
   background: linear-gradient(to bottom, rgb(2,31,55) 20%, #3498db);
-  // background: #3498db;
-
-  // #8e44ad, #3498db
 }
 
 .container {
   width: 80%;
   margin: 1.5em;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 1em;
   place-items: center;
 }

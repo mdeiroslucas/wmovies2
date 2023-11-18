@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'wmovies'},
   { path: 'wmovies', component: HomeComponent },
   { path: 'wmovies/:id', component: MovieDetailComponent},
-  { path: 'search/:movieName', component: HomeComponent},
+  { path: 'wmovies/search/:movieName', component: HomeComponent},
   
 ];
 

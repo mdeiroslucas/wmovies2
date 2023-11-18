@@ -6,28 +6,19 @@ import { Observable, catchError, first, of, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-
 export class MovieService {
-  
-  private readonly API = "http://localhost:8080/wmovies/";
-  
-  constructor(
-    private httpClient: HttpClient
-    
-    ) {
-      console.log('chamou construtor');
-    }
+  private readonly API = 'http://localhost:8080/wmovies/';
+
+  constructor(private httpClient: HttpClient) {}
 
   getMovies() {
-    console.log('chamou a api');
-    return this.httpClient.get<Movies[]>(this.API + 'now')
-      .pipe(
-        tap(movies => console.log(movies)),
-        catchError(error => {
-          console.log("deu ruim na hora de chamar filmes");
-          return of([]);
-        })
-      );
+    return this.httpClient.get<Movies[]>(this.API + 'now').pipe(
+      tap((movies) => console.log(movies)),
+      catchError((error) => {
+        console.log('deu ruim na hora de chamar filmes');
+        return of([]);
+      })
+    );
   }
 
   // getMovieById(id: string)  {
@@ -42,25 +33,21 @@ export class MovieService {
   // }
 
   getMovieById(id: string): Observable<Movies> {
-    return this.httpClient.get<Movies>(this.API + id)
-      .pipe(
-        catchError(error => {
-          console.log("deu ruim na hora de chamar filmes");
-          return of();
-        })
-      );
+    return this.httpClient.get<Movies>(this.API + id).pipe(
+      catchError((error) => {
+        console.log('deu ruim na hora de chamar filmes');
+        return of();
+      })
+    );
   }
 
   getMoviesbySearch(movieName: string) {
-    console.log('chegou aqui')
-    return this.httpClient.get<Movies[]>(this.API +'search/'+ movieName)
-      .pipe(
-        tap(movie => console.log(movie)),
-        catchError(error => {
-          console.log("deu ruim na hora de chamar filmes");
-          return of([]);
-        })
-      );
-  }      
-
+    return this.httpClient.get<Movies[]>(this.API + 'search/' + movieName).pipe(
+      tap((movie) => console.log(movie)),
+      catchError((error) => {
+        console.log('deu ruim na hora de chamar filmes');
+        return of([]);
+      })
+    );
+  }
 }
