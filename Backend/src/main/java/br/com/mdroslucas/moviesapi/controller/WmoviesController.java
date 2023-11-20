@@ -46,28 +46,6 @@ public class WmoviesController {
     @GetMapping("/now")
     @ResponseStatus(HttpStatus.OK)
     public List<DadosMovieTMDB> getMoviesPlayingNow () throws IOException, InterruptedException {
-
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create(uri + "/discover/movie?include_adult=true&language=pt-br"))
-//                .method("GET", HttpRequest.BodyPublishers.noBody())
-//                .header("authorization", apiKey)
-//                .header("accept", "application/json")
-//                .build();
-//
-//        List<DadosMovieTMDB> dadosMoviesList = new ArrayList<>();
-//
-//        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//
-//        JsonObject jsonObject = gson.fromJson(response.body(), JsonObject.class);
-//
-//        JsonArray resultsArray = jsonObject.get("results").getAsJsonArray();
-//
-//        for (JsonElement movieElement : resultsArray) {
-//            DadosMovieTMDB dadosMovie = getDadosMovieTMDB(movieElement);
-//            dadosMoviesList.add(dadosMovie);
-//        }
-//        return dadosMoviesList;
-
         return httpService.getMoviesPlayingNow();
     }
 
