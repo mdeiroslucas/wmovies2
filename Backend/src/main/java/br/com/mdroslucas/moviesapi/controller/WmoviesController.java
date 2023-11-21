@@ -52,17 +52,6 @@ public class WmoviesController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public DadosMovieTMDB getMovieById(@PathVariable("id") String id) throws IOException, InterruptedException {
-
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create(uri + "/movie/"+ id +"?language=pt-br"))
-//                .GET()
-//                .headers("authorization", apiKey, "accept", "application/json")
-//                .build();
-//
-//        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//
-//        DadosMovieTMDB dadosMovieTMDB = gson.fromJson(response.body(), DadosMovieTMDB.class);
-
         return httpService.getMovieById(id);
     }
 
@@ -70,42 +59,11 @@ public class WmoviesController {
 
     @GetMapping("/search/{movieName}")
     public List<DadosMovieTMDB> searchMovieByName(@PathVariable String movieName) throws IOException, InterruptedException {
-
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create(uri + "/search/movie?query="+ movieName +"&include_adult=true&language=pt-br"))
-//                .GET()
-//                .headers("authorization", apiKey, "accept", "application/json")
-//                .build();
-//
-//        List<DadosMovieTMDB> dadosMoviesList = new ArrayList<>();
-//
-//        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-//
-//        System.out.println(response.body());
-//
-//        JsonObject jsonObject = gson.fromJson(response.body(), JsonObject.class);
-//
-//        JsonArray resultsArray = jsonObject.get("results").getAsJsonArray();
-//
-//        for (JsonElement movieElement : resultsArray) {
-//            DadosMovieTMDB dadosMovie = getDadosMovieTMDB(movieElement);
-//            System.out.println(dadosMovie);
-//            dadosMoviesList.add(dadosMovie);
-//        }
         return httpService.searchMovieByName(movieName);
     }
 
-    private static DadosMovieTMDB getDadosMovieTMDB(JsonElement movieElement) {
-        JsonObject movieObject = movieElement.getAsJsonObject();
-        DadosMovieTMDB dadosMovie = new DadosMovieTMDB(
-                movieObject.get("id").getAsInt(),
-                movieObject.get("title").getAsString(),
-                movieObject.get("overview").getAsString(),
-                movieObject.get("release_date").getAsString(),
-                movieObject.get("backdrop_path").isJsonNull() ? null : movieObject.get("backdrop_path").getAsString(),
-                movieObject.get("vote_average").getAsDouble(),
-                movieObject.get("poster_path").isJsonNull() ? null : movieObject.get("poster_path").getAsString()
-        );
-        return dadosMovie;
+    @GetMapping("/popular")
+    public List<DadosMovieTMDB> getPopularMovise () throws IOException, InterruptedException {
+        return httpService.getPopularMovies();
     }
 }
