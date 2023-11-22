@@ -5,13 +5,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -107,10 +104,10 @@ public class HttpService {
         return dadosMovie;
     }
 
-    public List<DadosMovieTMDB> getPopularMovies() throws IOException, InterruptedException {
+    public List<DadosMovieTMDB> getSimilarMovies(String id) throws IOException, InterruptedException {
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(uri + "/person/popular"))
+                .uri(URI.create(uri + "/movie/" + id + "/similar?language=pt-br"))
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .header("authorization", apiKey)
                 .header("accept", "application/json")
