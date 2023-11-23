@@ -50,4 +50,14 @@ export class MovieService {
       })
     );
   }
+
+  getSimilarMovies(movieId: string) {
+    return this.httpClient.get<Movies[]>(this.API + 'similar/' + movieId).pipe(
+      tap((movie) => console.log(movie)),
+      catchError((error) => {
+        console.log('deu ruim na hora de chamar o ai de filmes');
+        return of([]);
+      })
+    );
+  }
 }
