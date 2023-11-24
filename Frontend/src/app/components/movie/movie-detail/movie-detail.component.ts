@@ -11,6 +11,7 @@ import { MovieService } from 'src/app/service/movie.service';
 })
 export class MovieDetailComponent {
   movie$!: Observable<Movies>;
+  similarMovie$!: Observable<Movies[]>;
 
   
   
@@ -22,6 +23,8 @@ export class MovieDetailComponent {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id') ?? '';
       this.movie$ = this.moviesService.getMovieById(id);
-    });
+      this.similarMovie$ = this.moviesService.getSimilarMovies(id);
+    });   
+
   }
 }

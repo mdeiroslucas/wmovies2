@@ -21,17 +21,6 @@ export class MovieService {
     );
   }
 
-  // getMovieById(id: string)  {
-  //   return this.httpClient.get<Movies>(this.API + id)
-  //   .pipe(
-  //     tap(movie => console.log(movie)),
-  //     catchError(error => {
-  //       console.log("deu ruim na hora de chamar o filme pelo id");
-  //       return of([]);
-  //     })
-  //   );
-  // }
-
   getMovieById(id: string): Observable<Movies> {
     return this.httpClient.get<Movies>(this.API + id).pipe(
       catchError((error) => {
