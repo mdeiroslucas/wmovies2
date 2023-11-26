@@ -14,7 +14,11 @@
             </div>
         </div>
     </div>
-    <div class="carousel" >
-
+    <div class="carousel" *ngFor="let movie of similarMovie$ | async">
+        <div class="similarmovies">
+            <div class="movie--title">
+                {{movie.title}}
+            </div>
+        </div>
     </div>
 </body>
